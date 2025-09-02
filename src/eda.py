@@ -60,20 +60,3 @@ for i in range(10):
     plt.axis('off')
 plt.tight_layout()
 plt.show()
-
-#criterion = nn.CrossEntropyLoss()
-#optimizer = optim.Adam(model.parameters(), lr=0.001)
-
-# Train the model on CPU
-#start = time.time()
-#for epoch in tqdm(range(5)):
-    #model.train()
-    #for images, labels in train_loader:
-        #optimizer.zero_grad()
-        #outputs = model(images)
-        #loss = criterion(outputs, labels)
-        #loss.backward()
-        #optimizer.step()
-        #running_loss += loss.item()
-    #print(f"Epoch [{epoch + 1}/5], Loss: {running_loss/len(train_loader):.4f}")
-#print(f"Training time: {time.time() - start:.2f} seconds")
