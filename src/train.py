@@ -37,8 +37,8 @@ class SimpleCNN(nn.Module):
 def train_model(epochs: int, save_path: str = "model.pth"):
     # Automatically download and load Fashion-MNIST dataset
     transform = transforms.Compose([transforms.ToTensor()])
-    complete_train_set = torchvision.datasets.FashionMNIST(root='./data', train=True, download=True, transform=transform)
-    test_set = torchvision.datasets.FashionMNIST(root='./data', train=False, download=True, transform=transform)
+    complete_train_set = torchvision.datasets.FashionMNIST(root="./data", train=True, download=True, transform=transform)
+    test_set = torchvision.datasets.FashionMNIST(root="./data", train=False, download=True, transform=transform)
 
     num_classes = 10
     samples_per_class = 2000
@@ -70,14 +70,14 @@ def train_model(epochs: int, save_path: str = "model.pth"):
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
-        print(f'Epoch [{epoch + 1}], Loss: {running_loss/len(train_loader):.4f}')
-    print(f'Training time: {time.time() - start:.2f} seconds')
+        print(f"Epoch [{epoch + 1}], Loss: {running_loss/len(train_loader):.4f}")
+    print(f"Training time: {time.time() - start:.2f} seconds")
 
     torch.save(model.state_dict(), save_path)
 
 def evaluate_model(model_path: str = "model.pth"):
     transform = transforms.Compose([transforms.ToTensor()])
-    test_set = torchvision.datasets.FashionMNIST(root='./data', train=False, download=True, transform=transform)
+    test_set = torchvision.datasets.FashionMNIST(root="./data", train=False, download=True, transform=transform)
     test_loader = torch.utils.data.DataLoader(test_set, batch_size=64, shuffle=False)
 
     model = SimpleCNN()
@@ -100,7 +100,7 @@ def evaluate_model(model_path: str = "model.pth"):
             all_labels.extend(labels.numpy())
 
     accuracy = correct / total
-    print(f'\nTest accuracy: {accuracy:.4f}')
+    print(f"\nTest accuracy: {accuracy:.4f}")
 
     # Classification report
     print("Classification Report:")
@@ -109,9 +109,9 @@ def evaluate_model(model_path: str = "model.pth"):
     # Plot confusion matrix
     conf_matrix = confusion_matrix(all_labels, all_preds)
     plt.figure(figsize=(8, 6))
-    sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues')
-    plt.xlabel('Predicted')
-    plt.ylabel('True')
-    plt.title('Confusion Matrix')
+    sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues")
+    plt.xlabel("Predicted")
+    plt.ylabel("True")
+    plt.title("Confusion Matrix")
     plt.show(block=False)
-    plt.savefig('confusion_matrix.png')
+    plt.savefig("confusion_matrix.png")
