@@ -4,7 +4,7 @@ import torch
 from src.train import SimpleCNN
 
 def test_model_training():
-    test_model_path = "test_model.pth"
+    test_model_path = "result/test_model.pth"
 
     # Train for 1 epoch for testing purposes
     train_model(1, save_path=test_model_path)
@@ -22,16 +22,16 @@ def test_model_training():
     with torch.no_grad():
         output = model(xin)
     assert output.shape == (1, 10), "Model output shape is incorrect."
+    
     # Clean up the model file after the test
-
     os.remove(test_model_path)
-    os.remove("confusion_matrix.png")
     print("Test passed: model trained and saved successfully.")
 
 def test_model_evaluation():
     # First, train and save a model
-    test_model_path = "test_model.pth"
+    test_model_path = "result/test_model.pth"
     train_model(1, save_path=test_model_path)
     # Now evaluate the model
     evaluate_model(model_path=test_model_path)
     os.remove(test_model_path)
+    os.remove("confusion_matrix.png")

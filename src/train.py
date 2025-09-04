@@ -1,4 +1,5 @@
 import time
+import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -34,7 +35,7 @@ class SimpleCNN(nn.Module):
         x = self.fc_layers(x)
         return x
     
-def train_model(epochs: int, save_path: str = "model.pth"):
+def train_model(epochs: int, save_path: str = "result/model.pth"):
     # Automatically download and load Fashion-MNIST dataset
     transform = transforms.Compose([transforms.ToTensor()])
     complete_train_set = torchvision.datasets.FashionMNIST(root="./data", train=True, download=True, transform=transform)
@@ -75,7 +76,7 @@ def train_model(epochs: int, save_path: str = "model.pth"):
 
     torch.save(model.state_dict(), save_path)
 
-def evaluate_model(model_path: str = "model.pth"):
+def evaluate_model(model_path: str = "result/model.pth"):
     transform = transforms.Compose([transforms.ToTensor()])
     test_set = torchvision.datasets.FashionMNIST(root="./data", train=False, download=True, transform=transform)
     test_loader = torch.utils.data.DataLoader(test_set, batch_size=64, shuffle=False)
