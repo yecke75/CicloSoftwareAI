@@ -1,12 +1,11 @@
 import time
-import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
-from tqdm import tqdm
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import classification_report, confusion_matrix
@@ -35,7 +34,7 @@ class SimpleCNN(nn.Module):
         x = self.fc_layers(x)
         return x
     
-def train_model(epochs: int, save_path: str = "result/model.pth"):
+def train_model(epochs: int, save_path: str = "/app/results/model.pth"):
     # Automatically download and load Fashion-MNIST dataset
     transform = transforms.Compose([transforms.ToTensor()])
     complete_train_set = torchvision.datasets.FashionMNIST(root="./data", train=True, download=True, transform=transform)
@@ -76,7 +75,10 @@ def train_model(epochs: int, save_path: str = "result/model.pth"):
 
     torch.save(model.state_dict(), save_path)
 
-def evaluate_model(model_path: str = "result/model.pth"):
+def evaluate_model(model_path: str = "/app/results/model.pth"):
+    # Use a non-interactive backend to avoid problems in Docker and in tests
+    matplotlib.use("Agg") 
+
     transform = transforms.Compose([transforms.ToTensor()])
     test_set = torchvision.datasets.FashionMNIST(root="./data", train=False, download=True, transform=transform)
     test_loader = torch.utils.data.DataLoader(test_set, batch_size=64, shuffle=False)
@@ -107,12 +109,14 @@ def evaluate_model(model_path: str = "result/model.pth"):
     print("Classification Report:")
     print(classification_report(all_labels, all_preds))
 
-    # Plot confusion matrix
+    # Save confusion matrix as an image
     conf_matrix = confusion_matrix(all_labels, all_preds)
     plt.figure(figsize=(8, 6))
     sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues")
     plt.xlabel("Predicted")
     plt.ylabel("True")
     plt.title("Confusion Matrix")
-    plt.show(block=False)
     plt.savefig("confusion_matrix.png")
+
+if __name__ == "__main__":
+    train_model(5)  # Train for 5 epochs

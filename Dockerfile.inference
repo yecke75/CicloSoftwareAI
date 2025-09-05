@@ -1,0 +1,10 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements/requirements_inference.txt .
+# it takes a lot of time to install torch
+RUN pip install --no-cache-dir -r requirements_inference.txt
+
+COPY src/inference.py ./src
+CMD ["python", "-u", "src/inference.py"]

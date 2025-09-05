@@ -4,7 +4,7 @@ import torch
 from src.train import SimpleCNN
 
 def test_model_training():
-    test_model_path = "result/test_model.pth"
+    test_model_path = "test_model.pth"
 
     # Train for 1 epoch for testing purposes
     train_model(1, save_path=test_model_path)
@@ -29,9 +29,11 @@ def test_model_training():
 
 def test_model_evaluation():
     # First, train and save a model
-    test_model_path = "result/test_model.pth"
+    # Assumed the tests are independent, so we train a new model here
+    test_model_path = "test_model.pth"
     train_model(1, save_path=test_model_path)
     # Now evaluate the model
     evaluate_model(model_path=test_model_path)
     os.remove(test_model_path)
     os.remove("confusion_matrix.png")
+    print("Test passed: model evaluated successfully.")

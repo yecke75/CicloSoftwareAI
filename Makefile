@@ -1,7 +1,7 @@
 .PHONY: install lint test
 
 install:
-	python3 -m pip install --upgrade pip && python3 -m pip install -r requirements.txt
+	python3 -m pip install --upgrade pip && python3 -m pip install -r requirements/requirements.txt
 	@echo "Installation complete. You can now run the project."
 
 lint:
