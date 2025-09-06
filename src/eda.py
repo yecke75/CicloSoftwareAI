@@ -1,14 +1,10 @@
-import time
 import torch
-import torch.nn as nn
-import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
 from tqdm import tqdm
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.metrics import classification_report, confusion_matrix
 from torch.utils.data import Subset
 
 def eda():

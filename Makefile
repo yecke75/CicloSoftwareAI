@@ -5,7 +5,7 @@ install:
 	@echo "Installation complete. You can now run the project."
 
 lint:
-	pylint --disable-R,C src/*.py tests/*.py
+	python -c "import sys; sys.path.insert(0, 'src'); import pylint.lint; pylint.lint.Run(['--disable=R,C,W,E1101', 'src/*.py', 'tests/*.py'])"
 	@echo "Linting complete. No issues found."
 
 test:

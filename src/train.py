@@ -38,7 +38,6 @@ def train_model(epochs: int, save_path: str = "/app/results/model.pth"):
     # Automatically download and load Fashion-MNIST dataset
     transform = transforms.Compose([transforms.ToTensor()])
     complete_train_set = torchvision.datasets.FashionMNIST(root="./data", train=True, download=True, transform=transform)
-    test_set = torchvision.datasets.FashionMNIST(root="./data", train=False, download=True, transform=transform)
 
     num_classes = 10
     samples_per_class = 2000
