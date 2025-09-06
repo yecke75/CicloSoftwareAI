@@ -75,7 +75,7 @@ def train_model(epochs: int, save_path: str = "/app/results/model.pth"):
 
     torch.save(model.state_dict(), save_path)
 
-def evaluate_model(model_path: str = "/app/results/model.pth"):
+def evaluate_model(model_path: str = "/app/results/model.pth", results_path: str = "/app/results/confusion_matrix.png"):
     # Use a non-interactive backend to avoid problems in Docker and in tests
     matplotlib.use("Agg") 
 
@@ -116,7 +116,8 @@ def evaluate_model(model_path: str = "/app/results/model.pth"):
     plt.xlabel("Predicted")
     plt.ylabel("True")
     plt.title("Confusion Matrix")
-    plt.savefig("confusion_matrix.png")
+    plt.savefig(results_path)
 
 if __name__ == "__main__":
     train_model(5)  # Train for 5 epochs
+    evaluate_model()  # Evaluate the trained model

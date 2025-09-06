@@ -33,7 +33,7 @@ def test_model_evaluation():
     test_model_path = "test_model.pth"
     train_model(1, save_path=test_model_path)
     # Now evaluate the model
-    evaluate_model(model_path=test_model_path)
+    evaluate_model(model_path=test_model_path, results_path="persistent_data/confusion_matrix.png")
     os.remove(test_model_path)
-    os.remove("confusion_matrix.png")
+    os.remove("persistent_data/confusion_matrix.png")
     print("Test passed: model evaluated successfully.")
