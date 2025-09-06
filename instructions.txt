@@ -1,0 +1,16 @@
+This is just a small university project for the course "Ciclo di Vita di un Software di Intelligenza Artificiale" in Università di Verona.
+It creates a model with pytorch and trains it with the database Fashion-MNIST, which is auto-installed.
+In the Makefile you can install all the required libraries with "make install", then try a code evaluation with "make lint" and test everything with "make test", which does some EDA (test 1), creates the model, trains it (test 2) and evaluates it (test 3). The total percentage for the test also consider the inference file which shouldn't count, that's why it doesn't show 100% but 77% because of the coverage. For building the artifacts you need "make build" and "make clean" for the cleanup from everything.
+Training, evaluation and inference can also be done with dockers. The image for training and evaluation is in DockerHub at yecke75/model_trainer, and the one for the inference is at yecke75/model_inference. For building the images:
+- "docker build -f Dockerfile -t model_trainer ."
+- "docker build -f Dockerfile.inference -t model_inference ."
+To run them:
+- "docker run -d -v {project-path}\persistent_data:/app/results --name model_trainer model_trainer"
+- "docker run -d -v {project-path}\persistent_data:/app/results --name model_inference model_inference python src/inference.py /app/results/model.pth /app/results/sample_image.png"
+This last command is for testing the inference with an image of a pullover given in the "persistent_data" folder.
+To get the running logs:
+- "docker logs --follow model_trainer"
+- "docker logs --follow model_inference"
+To stop them:
+- "docker rm model_trainer"
+- "docker rm model_inference"
