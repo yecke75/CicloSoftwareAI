@@ -11,3 +11,17 @@ lint:
 test:
 	python -m pytest -vv --cov=src tests/
 	@echo "Testing complete. All tests passed."
+
+build:
+	python -m build
+	@echo "Build complete. Check the dist/ directory."
+
+clean:
+	-rd /s /q dist
+	-rd /s /q build
+	-rd /s /q .pytest_cache
+	-rd /s /q __pycache__
+	-rd /s /q src\__pycache__
+	-rd /s /q tests\__pycache__
+	-rd /s /q src\ciclosoftwareai.egg-info
+	@echo "Clean complete."
